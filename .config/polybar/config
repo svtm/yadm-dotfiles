@@ -1,0 +1,345 @@
+; TODO: add ethernet thing
+
+[bar/top]
+width = 100%
+height = 30
+
+monitor = ${env:MONITOR:}
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+border-color     = ${colors.accent}
+
+border-bottom-size = 2
+
+fixed-center = true
+
+font-0 = Space Mono for Powerline:pixelsize=10;0
+font-1 = TerminessTTF Nerd Font:pixelsize=9
+
+modules-left = i3
+modules-center = date netatmo
+modules-right = bus spacer player-mpris-tail spacer wireless-network wired-network spacer pulseaudio spacer battery
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+tray-position = right
+
+[colors]
+background          = #2d2d2d
+background-light    = #3a3a3a
+foreground          = #f2f2f2
+accent              = #00bbff
+urgent              = #e4b226
+
+[module/spacer]
+type = custom/text
+content = /
+content-foreground = ${colors.accent}
+content-padding = 2
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-scroll = false
+
+format = <label-state> <label-mode>
+format-padding-right = 0
+
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-padding = 1
+
+label-focused-foreground = ${colors.accent}
+label-focused-padding = 1
+
+
+label-urgent-foreground = ${colors.urgent}
+label-urgent-padding = 1
+
+
+[module/cpu]
+type = internal/cpu
+
+interval = 1
+
+format = <label>
+format-padding = 2
+
+label = %{F#00bbff}%{F-} %percentage%%
+
+
+[module/memory]
+type = internal/memory
+
+interval = 1
+
+format = <label>
+format-padding = 2
+
+label = %{F#00bbff}%{F-} %gb_used% (%percentage_used%%)
+
+
+[module/temperature]
+type = internal/temperature
+
+interval = 1
+
+thermal-zone = 6
+
+warn-temperature = 80
+
+format = <ramp> <label>
+format-padding = 2
+
+format-warn = <ramp> <label-warn>
+format-warn-padding = 2
+
+label = %temperature%
+
+label-warn = %temperature%
+label-warn-foreground = #e4b226
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+
+[module/date]
+type = internal/date
+
+interval = 1
+
+date = %a %d%{F#00bbff}/%{F-}%m 
+time = %H%{F#00bbff}:%{F-}%M%{F#00bbff}:%{F-}%S
+
+date-alt = %A, %d %B %Y
+time-alt = %H:%M:%S
+
+format = <label>
+format-padding = 2
+
+label = %date% %time%
+
+
+[module/battery]
+type = internal/battery
+
+full-at = 100
+
+battery = BAT0
+adapter = AC
+
+poll-interval = 5
+
+format-charging = <animation-charging> <label-charging>
+format-charging-padding =
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding =
+
+#format-full = <ramp-capacity> <label-full>
+format-full =
+format-full-padding = 2
+
+label-charging = %percentage%%
+
+label-discharging = %percentage%%
+
+label-full = %percentage%%
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.accent}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 400
+animation-charging-foreground = ${colors.accent}
+
+
+[module/backlight]
+type = internal/backlight
+
+card = intel_backlight
+
+format = <label>
+format-padding = 2
+
+label = %{F#00bbff}%{F-} %percentage%%
+
+
+[module/pavolume]
+type = custom/script
+
+interval = 1
+
+format-padding = 2
+
+exec = ~/scripts/pavolume.sh
+
+click-left = ~/scripts/pavolume.sh --togmute
+scroll-up = ~/scripts/pavolume.sh --up
+scroll-down = ~/scripts/pavolume.sh --down
+
+
+[module/powermenu]
+type = custom/menu
+
+label-open =   
+
+label-close = cancel
+
+label-close-background = #312842
+label-close-foreground = #ffeefc
+label-open-padding-left = 4
+label-open-padding-right = 3
+label-close-padding = 3
+
+menu-0-0 = lock
+menu-0-0-exec = ~/scripts/lock.sh
+menu-0-0-background = #312842
+menu-0-0-foreground = #c05c47
+menu-0-0-padding-right = 3
+
+menu-0-1 = reboot
+menu-0-1-exec = menu-open-1
+menu-0-1-background = #312842
+menu-0-1-foreground = #c05c47
+menu-0-1-padding-right = 3
+
+menu-0-2 = power off
+menu-0-2-exec = menu-open-2
+menu-0-2-background = #312842
+menu-0-2-foreground = #c05c47
+menu-0-2-padding-right = 3
+
+menu-1-0 = reboot?  
+menu-1-0-exec = reboot
+menu-1-0-background = #312842
+menu-1-0-foreground = #e4b226
+menu-1-0-padding-right = 3
+
+menu-2-0 = power off?  
+menu-2-0-exec = poweroff
+menu-2-0-background = #312842
+menu-2-0-foreground = #e4b226
+menu-2-0-padding-right = 3
+
+
+[module/weather]
+type = custom/script
+
+interval = 120
+
+format-padding = 2
+
+exec = ~/scripts/weather.py
+
+
+[module/wireless-network]
+type = internal/network
+
+interface = wlp61s0
+
+format-connected = <label-connected>
+format-connected-padding =
+
+format-disconnected = <label-disconnected>
+format-disconnected-padding =
+
+label-connected = "%{F#00bbff}%{F-} %essid%  "
+
+;label-disconnected = "%{F#00bbff}%{F-} None  "
+
+[module/wired-network]
+type = internal/network
+
+interface = enp0s20f0u4u1
+
+format-connected = <label-connected>
+format-connected-padding =
+
+format-disconnected = <label-disconnected>
+format-disconnected-padding =
+
+label-connected = %{F#00bbff}%{F-}
+
+label-disconnected = %{F#00bbff}%{F-}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+;sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = false
+
+; Interval for volume increase/decrease (in percent points) (unreleased)
+; Default: 5
+interval = 5
+
+;format-volume = %{F#00bbff}<ramp-volume>%{F-} <label-volume>
+format-volume = <bar-volume> <label-volume>
+format-muted = <label-muted>
+label-volume = %percentage%
+label-muted = ﱝ
+label-muted-foreground = ${colors.urgent}
+label-muted-padding =
+label-muted-size = 15
+
+label-volume-padding-right = 
+
+bar-volume-width = 10
+bar-volume-indicator = /
+bar-volume-indicator-foreground = ${colors.accent}
+bar-volume-fill = -
+bar-volume-fill-foreground = ${colors.accent}
+bar-volume-empty = -
+
+ramp-volume-padding = 1
+
+ramp-volume-0 = ▁
+ramp-volume-1 = ▂
+ramp-volume-2 = ▃
+ramp-volume-3 = ▄
+ramp-volume-4 = ▅
+ramp-volume-5 = ▆
+ramp-volume-6 = ▇
+ramp-volume-7 = █
+
+[module/player-mpris-tail]
+type = custom/script
+exec = ~/scripts/player-mpris-tail.py -f '{icon} {artist} - {title}'
+tail = true
+label = %output%
+click-right = ~/scripts/player-mpris-tail.py previous
+click-left = ~/scripts/player-mpris-tail.py next
+click-middle = ~/scripts/player-mpris-tail.py play-pause
+format-padding = 0
+
+[module/netatmo]
+type = custom/script
+exec = ~/scripts/weatherstation.py
+label = %output%
+interval = 360
+
+[module/bus]
+type = custom/script
+exec = ~/scripts/bus.py
+label = %output%
+interval = 120
+click-left = ~/scripts/bus.py
