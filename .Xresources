@@ -1,4 +1,4 @@
-*.font: xft:Space Mono For Powerline:pixelsize=10
+*.font: xft:xft:MesloLGSNF:pixelsize=13
 
 Xft.dpi:                        96
 Xft.antialias:                  1
@@ -21,7 +21,8 @@ URxvt.internalBorder:           10
 URxvt.perl-ext:	 		default,matcher,resize-font,clipboard,keyboard-select
 URxvt.url-launcher:             firefox
 URxvt.matcher.button: 		1
-URxvt.font: xft:Space Mono For Powerline:pixelsize=13
+!URxvt.font: xft:Space Mono For Powerline:pixelsize=13
+URxvt.font: xft:MesloLGSNF:pixelsize=13
 
 
 URxvt.keysym.Control-Left:   \033[1;5D
@@ -33,7 +34,7 @@ URxvt.keysym.Shift-Alt-C: eval:selection_to_clipboard
 
 URxvt.keysym.C-Down: resize-font:smaller
 URxvt.keysym.C-Up: resize-font:bigger
-7aa1dc
+
 *.foreground:   #f2f2f2
 *.background:   #252828
 *.cursorColor:  #00bbff
