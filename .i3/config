@@ -71,8 +71,8 @@ bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill compton
-bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+t exec --no-startup-id pkill picom
+bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
@@ -215,23 +215,21 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Bind workspaces to monitors
-set $left DP2-1
-set $right DP2-8
-set $internal eDP1
+set $left DP-1
+set $right HDMI-0
 #set $monitor_three DP2-1
 
 workspace $ws1 output $left
 workspace $ws2 output $left
 workspace $ws3 output $left
-
 workspace $ws4 output $right
 workspace $ws5 output $right
+
 workspace $ws6 output $right
 workspace $ws7 output $right
-
-workspace $ws8 output $internal
-workspace $ws9 output $internal
-workspace $ws10 output $internal
+workspace $ws8 output $right
+workspace $ws9 output $right
+workspace $ws10 output $right
 
 # Open applications on specific workspaces
 # assign [class="Thunderbird"] $ws1
@@ -334,12 +332,14 @@ bindsym $mod+l exec betterlockscreen -l dimblur
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id nitrogen --restore; sleep 1; compton -b
-exec --no-startup-id feh --bg-scale ~/Pictures/landscape.png
+exec --no-startup-id feh --bg-scale ~/Pictures/cityscape.jpg
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
+exec --no-startup-id picom
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
+exec --no-startup-id ~/.screenlayout/double.sh
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
@@ -348,8 +348,8 @@ exec --no-startup-id xautolock -time 5 -locker "betterlockscreen -l dimblur"
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/scripts/monitor_toggle.sh
-exec_always --no-startup-id ~/scripts/mouse_buttons.sh
+#exec_always --no-startup-id ~/scripts/monitor_toggle.sh
+#exec_always --no-startup-id ~/scripts/mouse_buttons.sh
 #exec --no-startup-id ~/scripts/startup.sh
 
 # Color palette used for the terminal ( ~/.Xresources file )

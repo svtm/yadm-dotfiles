@@ -71,10 +71,11 @@ plugins=(
   mvn
   colored-man-pages
   common-aliases
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # User configuration
 
