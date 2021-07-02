@@ -71,6 +71,8 @@ plugins=(
   mvn
   colored-man-pages
   common-aliases
+  docker
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -89,7 +91,7 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # else
 #   export EDITOR='mvim'
 # fi
-
+export EDITOR='vim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -108,13 +110,16 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 xset b off
 NPM_PACKAGES="${HOME}/.npm-packages"
 LOCAL_PACKAGES="${HOME}/.local"
-PATH="$NPM_PACKAGES/bin:$LOCAL_PACKAGES/bin:$PATH"
+PATH="$HOME/signicat/docker-green-stack-sign/util:$NPM_PACKAGES/bin:$LOCAL_PACKAGES/bin:$HOME/.cabal:$HOME/.ghcup/bin:$HOME/scripts:$PATH"
+
+export JAVA_HOME="/usr/lib/jvm/default"
 
 unset MANPATH
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 source /usr/share/fzf/key-bindings.zsh
 
 unsetopt share_history
+unsetopt hist_verify
 
 # If current selection is a text file shows its content,
 # if it's a directory shows its content, the rest is ignored
@@ -154,7 +159,15 @@ function murder() {
 }
 
 alias cdsigapp="cd ~/signicat/signicat-stack"
+alias cddocker="cd ~/signicat/docker-green-stack-sign"
 alias cdsig="cd ~/signicat/"
+alias cdsignflow="cd ~/signicat/signflow"
+alias cdportal="cd ~/signicat/portal"
+alias cdws="cd ~/signicat/ws-gateway"
+alias cdsignrest="cd ~/signicat/signrest-app"
+alias cdlib="cd ~/signicat/libraries"
+alias cdnomad="cd ~/signicat/nomad-sign-team"
+alias mscrot="scrot -e 'mv $f ~/screenshots/'"
 
 replace_symlink() {
     if [ -z "$1" ]; then
@@ -174,3 +187,16 @@ alias update_pmodules="find ~/signicat/ -maxdepth 1 -type d \(  -name \"pmodule_
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export QTT_QPA_PLATFORMTHEME=gtk2
+
+alias yolo="mvn clean install -DskipTests -Dcheckstyle.skip -Djacoco.skip -Ddocker.skip -Djavadoc.skip -Denforcer.skip -Dmaven.javadoc.skip=true"
+
+bwl() {
+	bw_output=$(bw unlock)
+	echo $bw_output
+	export_cmd=$(echo $bw_output | grep export | sed 's/\$ //')
+	if [ ! -z $export_cmd ]; then
+		eval $export_cmd
+	fi
+}

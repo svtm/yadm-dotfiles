@@ -1,4 +1,4 @@
-*.font: xft:xft:MesloLGSNF:pixelsize=13
+!*.font: xft:xft:MesloLGSNF:pixelsize=13
 
 Xft.dpi:                        96
 Xft.antialias:                  1
