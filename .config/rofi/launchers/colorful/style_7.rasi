@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:							"Iosevka Nerd Font 12";
+	font:							"JetBrainsMono Nerd Font Bold 10";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -43,7 +43,7 @@ prompt {
     margin-right:                   5%;
 	background-color: 				@al;
 	text-color: 					@fg;
-	font:							"FantasqueSansMono Nerd Font 12";
+	font:							"JetBrainsMono Nerd Font Bold 12";
 }
 
 entry {
@@ -99,11 +99,15 @@ element {
 }
 
 element-icon {
+    background-color:               inherit;
+    text-color:                     inherit;
     size:                           24px;
     border:                         0px;
 }
 
 element-text {
+    background-color:               @al;
+    text-color:                     inherit;
     expand:                         true;
     horizontal-align:               0;
     vertical-align:                 0.5;

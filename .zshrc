@@ -168,6 +168,9 @@ alias cdsignrest="cd ~/signicat/signrest-app"
 alias cdlib="cd ~/signicat/libraries"
 alias cdnomad="cd ~/signicat/nomad-sign-team"
 alias mscrot="scrot -e 'mv $f ~/screenshots/'"
+alias vim="nvim"
+alias jshell="env TERM=xterm jshell"
+alias dcu="docker-compose up"
 
 replace_symlink() {
     if [ -z "$1" ]; then

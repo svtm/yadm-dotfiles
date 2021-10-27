@@ -1,345 +1,327 @@
-; TODO: add ethernet thing
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = ${xrdb:background}
+foreground = #adb1b9   
+
+color0 = ${xrdb:color0}
+color1 = ${xrdb:color1}
+color2 = ${xrdb:color2}
+color3 = ${xrdb:color3}
+color4 = ${xrdb:color4}
+color5 = ${xrdb:color5}
+color6 = ${xrdb:color6}
+color7 = ${xrdb:color7}
+color8 = ${xrdb:color8}
+color9 = ${xrdb:color9}
+color10 = ${xrdb:color10}
+color11 = ${xrdb:color11}
+color12 = ${xrdb:color12}
+color13 = ${xrdb:color13}
+color14 = ${xrdb:color14}
+color15 = ${xrdb:color15}
+dark-light = #272A2B 
+active-light = #313435
 
 [bar/top]
-width = 100%
-height = 30
-
+tray-position = right
 monitor = ${env:MONITOR:}
-
+width =  100%
+height = 26
+padding-left =1
+padding-right =0
 background = ${colors.background}
 foreground = ${colors.foreground}
-border-color     = ${colors.accent}
-
-border-bottom-size = 2
-
-fixed-center = true
-
-font-0 = MesloLGSNF:pixelsize=10;0
-font-1 = TerminessTTF Nerd Font:pixelsize=9
-
-modules-left = i3
-modules-center = date netatmo
-modules-right = bus spacer player-mpris-tail spacer wireless-network wired-network spacer pulseaudio spacer battery
+bottom = false
+border-top-size = 7
+border-bottom-size = 7
+border-top-color = ${colors.background}
+border-bottom-color = ${colors.background}
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
-tray-position = right
+line-size = 3
+wm-restack = i3
 
-[colors]
-background          = #2d2d2d
-background-light    = #3a3a3a
-foreground          = #f2f2f2
-accent              = #00bbff
-urgent              = #e4b226
+modules-left = round-left i3 round-right 
+modules-center =  round-left music round-right
+modules-right =      temperature   alsa battery round-left cpu round-right mem round-left time round-right
 
-[module/spacer]
+font-0 = JetBrainsMono Nerd Font:style=Bold:pixelsize=13;3
+font-1 = JetBrainsMono Nerd Font:size=18;5
+font-2 = Material Design Icons:style=Bold:size=13;3
+font-3 = unifont:fontformat=truetype:size=13:antialias=true;
+
+#font-0 = MesloLGSNF:pixelsize=10;0
+#font-1 = TerminessTTF Nerd Font:pixelsize=9
+#font-2 = TerminessTTF Nerd Font:pixelsize=9
+#font-3 = TerminessTTF Nerd Font:pixelsize=9
+
+
+[module/round-left]
 type = custom/text
-content = /
-content-foreground = ${colors.accent}
-content-padding = 2
+content = %{T3}%{T-}
+content-foreground = #2c3038
+
+[module/round-right]
+type = custom/text
+content = %{T3}%{T-}
+content-foreground = #2c3038
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 70
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+format-padding = 0
+label = %temperature%
+label-warn = %temperature%
+ramp-0 =  "󰜗" 
+ramp-foreground = #a4ebf3
+label-padding-right = 1
 
 [module/i3]
 type = internal/i3
 
 pin-workspaces = true
 strip-wsnumbers = true
-index-sort = true
+#inline-mode = true
+enable-click = true
 enable-scroll = false
+reverse-scroll = false
 
 format = <label-state> <label-mode>
-format-padding-right = 0
 
-label-unfocused-foreground = ${colors.foreground}
-label-unfocused-padding = 1
+ws-icon-0 = 1;%{F#F9DE8F} %{F-}
+ws-icon-1 = 2;2   
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-9 = 10;%{F#A3BE8C} %{F-}
 
-label-focused-foreground = ${colors.accent}
+label-separator = ""
+label-separator-background = #2c3038
+
+label-focused =  %icon%
+label-focused-foreground = ${colors.foreground}
+label-focused-underline =  #565c64
 label-focused-padding = 1
+label-focused-background = #2c3038
+
+label-occupied =  %icon%  
+label-occupied-foreground = #646870  
+label-occupied-background = #2c3038
+label-occupied-padding = 1
+
+label-empty = %icon%
+label-empty-foreground =   ${colors.foreground}
+label-empty-padding = 1
+label-empty-background = #2b2f37
 
 
-label-urgent-foreground = ${colors.urgent}
+label-urgent = %icon%
+label-urgent-foreground = #88C0D0
+label-urgent-background = #2c3038
 label-urgent-padding = 1
 
+label-unfocused = %icon%
+label-unfocused-background = #2c3038
+label-unfocused-padding = 1
 
-[module/cpu]
-type = internal/cpu
+label-visible = %icon%
+label-visible-background = #2c3038
+label-visible-padding = 1
 
-interval = 1
+label-mode-foreground = ${colors.foreground}
+label-mode-padding = 0
+label-mode-background = #2c3038
 
-format = <label>
-format-padding = 2
+[module/alsa]
+type = internal/alsa
+format-volume = <label-volume> <bar-volume>
+label-volume = " "  
+label-volume-foreground = ${colors.foreground}
 
-label = %{F#00bbff}%{F-} %percentage%%
+format-muted-foreground = ${colors.foreground}
+label-muted = 󰚙
 
+format-muted-padding = 1
+format-muted-background = #2b2f37
 
-[module/memory]
-type = internal/memory
+bar-volume-width = 10
+bar-volume-foreground-0 = #61afef
+bar-volume-foreground-1 = #61afef
+bar-volume-foreground-2 = #61afef
+bar-volume-foreground-3 = #61afef
+bar-volume-foreground-4 = #61afef
+bar-volume-foreground-5 = #61afef
+bar-volume-foreground-6 = #61afef
+bar-volume-gradient = false
+bar-volume-indicator = 
+bar-volume-indicator-foreground = #61afef
+bar-volume-indicator-font = 2
+bar-volume-fill = ━ 
+bar-volume-fill-foreground = #61afef
+bar-volume-fill-font = 2
+bar-volume-empty = ━
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground}
+format-volume-padding = 1
 
-interval = 1
-
-format = <label>
-format-padding = 2
-
-label = %{F#00bbff}%{F-} %gb_used% (%percentage_used%%)
-
-
-[module/temperature]
-type = internal/temperature
-
-interval = 1
-
-thermal-zone = 6
-
-warn-temperature = 80
-
-format = <ramp> <label>
-format-padding = 2
-
-format-warn = <ramp> <label-warn>
-format-warn-padding = 2
-
-label = %temperature%
-
-label-warn = %temperature%
-label-warn-foreground = #e4b226
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
-
-[module/date]
+[module/time]
 type = internal/date
-
-interval = 1
-
-date = %a %d%{F#00bbff}/%{F-}%m 
-time = %H%{F#00bbff}:%{F-}%M%{F#00bbff}:%{F-}%S
-
-date-alt = %A, %d %B %Y
-time-alt = %H:%M:%S
-
+interval = 60
 format = <label>
-format-padding = 2
+format-background = #2b2f37
+date = %{F#888e96}󰥔 %H:%M%{F-}
+time-alt = %{F#61afef}󰃭 %a, %b %d%{F-}
 
-label = %date% %time%
+label = %date%%time%
 
+
+[module/mem]
+type = custom/script
+exec = free -m | sed -n 's/^Mem:\s\+[0-9]\+\s\+\([0-9]\+\)\s.\+/\1/p'
+format = <label>
+format-prefix = "﬙ " 
+label = %output% MB
+label-padding = 1
+format-prefix-foreground = #d19a66
+
+[module/updates]
+type = custom/script
+exec = doas xbps-install -S > /dev/null 2>&1; xbps-updates
+format = <label>
+interval = 4600 
+label =  %output%  
+label-padding = 2
+label-foreground = #BF616A
+
+[module/powermenu]
+type = custom/text 
+content =" " 
+content-padding =2
+click-left = doas zzz &
+content-foreground =  #e06c75
+
+[module/wlan]
+type = internal/network
+interface = wlp61s0
+interval = 3.0
+format-connected =  <label-connected>
+label-connected = "󰤪  " 
+label-connected-foreground = #A3BE8C 
 
 [module/battery]
 type = internal/battery
-
-full-at = 100
-
 battery = BAT0
-adapter = AC
-
-poll-interval = 5
+adapter = AC0
+full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-padding =
-
-format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-padding =
-
-#format-full = <ramp-capacity> <label-full>
-format-full =
-format-full-padding = 2
-
 label-charging = %percentage%%
 
+format-charging-padding = 1
+format-charging-foreground = ${colors.color4}
+
+format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 
-label-full = %percentage%%
+format-discharging-foreground = ${colors.foreground}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.accent}
+format-full-prefix = "  "
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-framerate = 400
-animation-charging-foreground = ${colors.accent}
+format-full-prefix-foreground = #A0E8A2
+format-foreground = ${colors.color4}
+format-background = #2b2f37 
+
+label-discharging-foreground = ${colors.foreground}
+
+ramp-capacity-foreground =  #A0E8A2  
+label-charging-foreground = ${colors.foreground}
+
+ramp-capacity-0 = "  " 
+ramp-capacity-1 = "  " 
+ramp-capacity-2 = "  " 
+ramp-capacity-3 = "  " 
+ramp-capacity-4 = "  "
+
+animation-charging-0 = "  " 
+animation-charging-1 = "  " 
+animation-charging-2 = "  " 
+animation-charging-3 = "  " 
+animation-charging-4 = "  "
+
+animation-charging-foreground = #DF8890
+animation-charging-framerate = 910 
+format-discharging-padding = 1
 
 
-[module/backlight]
-type = internal/backlight
-
-card = intel_backlight
-
+[module/volume]
+type = custom/script
+exec = amixer get Master | awk '$0~/%/{print $4}' | tr -d '[]'
 format = <label>
-format-padding = 2
+internal = 5.0
+label = %output% 
+label-foreground = #BF616A
+label-padding = 1
 
-label = %{F#00bbff}%{F-} %percentage%%
+[module/xbacklight]
+type = internal/backlight
+card = intel_backlight
+format = <label>
+format-prefix = "  "
+label = %percentage%
+format-prefix-foreground = #61afef
+label-foreground =   #D8DEE9
+format-padding = 1
 
+[module/cpu]
+type = internal/cpu
+interval = 2.5
 
-[module/pavolume]
-type = custom/script
+format-prefix = "  " 
+format = <label> 
 
-interval = 1
+label = CPU %percentage%%
 
-format-padding = 2
+format-background = #2b2f37
+format-foreground = #989cff
 
-exec = ~/scripts/pavolume.sh
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...
 
-click-left = ~/scripts/pavolume.sh --togmute
-scroll-up = ~/scripts/pavolume.sh --up
-scroll-down = ~/scripts/pavolume.sh --down
-
-
-[module/powermenu]
-type = custom/menu
-
-label-open =   
-
-label-close = cancel
-
-label-close-background = #312842
-label-close-foreground = #ffeefc
-label-open-padding-left = 4
-label-open-padding-right = 3
-label-close-padding = 3
-
-menu-0-0 = lock
-menu-0-0-exec = ~/scripts/lock.sh
-menu-0-0-background = #312842
-menu-0-0-foreground = #c05c47
-menu-0-0-padding-right = 3
-
-menu-0-1 = reboot
-menu-0-1-exec = menu-open-1
-menu-0-1-background = #312842
-menu-0-1-foreground = #c05c47
-menu-0-1-padding-right = 3
-
-menu-0-2 = power off
-menu-0-2-exec = menu-open-2
-menu-0-2-background = #312842
-menu-0-2-foreground = #c05c47
-menu-0-2-padding-right = 3
-
-menu-1-0 = reboot?  
-menu-1-0-exec = reboot
-menu-1-0-background = #312842
-menu-1-0-foreground = #e4b226
-menu-1-0-padding-right = 3
-
-menu-2-0 = power off?  
-menu-2-0-exec = poweroff
-menu-2-0-background = #312842
-menu-2-0-foreground = #e4b226
-menu-2-0-padding-right = 3
-
-
-[module/weather]
-type = custom/script
-
-interval = 120
-
-format-padding = 2
-
-exec = ~/scripts/weather.py
-
-
-[module/wireless-network]
-type = internal/network
-
-interface = wlp61s0
-
-format-connected = <label-connected>
-format-connected-padding =
-
-format-disconnected = <label-disconnected>
-format-disconnected-padding =
-
-label-connected = "%{F#00bbff}%{F-} %essid%  "
-
-;label-disconnected = "%{F#00bbff}%{F-} None  "
-
-[module/wired-network]
-type = internal/network
-
-interface = enp0s20f0u4u1
-
-format-connected = <label-connected>
-format-connected-padding =
-
-format-disconnected = <label-disconnected>
-format-disconnected-padding =
-
-label-connected = %{F#00bbff}%{F-}
-
-label-disconnected = %{F#00bbff}%{F-}
-
-[module/pulseaudio]
-type = internal/pulseaudio
-
-; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
-; If not, uses default sink
-;sink = alsa_output.pci-0000_00_1f.3.analog-stereo
-
-; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
-; Default: true
-use-ui-max = false
-
-; Interval for volume increase/decrease (in percent points) (unreleased)
-; Default: 5
-interval = 5
-
-;format-volume = %{F#00bbff}<ramp-volume>%{F-} <label-volume>
-format-volume = <bar-volume> <label-volume>
-format-muted = <label-muted>
-label-volume = %percentage%
-label-muted = ﱝ
-label-muted-foreground = ${colors.urgent}
-label-muted-padding =
-label-muted-size = 15
-
-label-volume-padding-right = 
-
-bar-volume-width = 10
-bar-volume-indicator = /
-bar-volume-indicator-foreground = ${colors.accent}
-bar-volume-fill = -
-bar-volume-fill-foreground = ${colors.accent}
-bar-volume-empty = -
-
-ramp-volume-padding = 1
-
-ramp-volume-0 = ▁
-ramp-volume-1 = ▂
-ramp-volume-2 = ▃
-ramp-volume-3 = ▄
-ramp-volume-4 = ▅
-ramp-volume-5 = ▆
-ramp-volume-6 = ▇
-ramp-volume-7 = █
-
-[module/player-mpris-tail]
+[module/music]
 type = custom/script
 exec = ~/scripts/player-mpris-tail.py -f '{icon} {artist} - {title}'
 tail = true
-label = %output%
+label =  %output%
+label-background = #2c3038
 click-right = ~/scripts/player-mpris-tail.py previous
 click-left = ~/scripts/player-mpris-tail.py next
 click-middle = ~/scripts/player-mpris-tail.py play-pause
 format-padding = 0
-
-[module/netatmo]
-type = custom/script
-exec = ~/scripts/weatherstation.py
-label = %output%
-interval = 360
-
-[module/bus]
-type = custom/script
-exec = ~/scripts/bus.py
-label = %output%
-interval = 120
-click-left = ~/scripts/bus.py

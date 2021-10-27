@@ -31,7 +31,7 @@ token = oauth.fetch_token(
 )
 
 client = OAuth2Session(
-    client_id, 
+    client_id,
     token=token,
     auto_refresh_url=token_url,
     auto_refresh_kwargs=extra,
