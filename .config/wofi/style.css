@@ -1,0 +1,95 @@
+/*
+ALPHA="#00000000"
+BG="#1e222aff"
+FG="#c8ccd4ff"
+SELECT="#101010ff"
+accents = ('#e06c75' '#d19a66' '#e5c07b' '#98c379' '#56b6c2' '#61afef' '#c678dd' '#be5046')
+*/
+
+@property --bg-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #1e1e2eff;
+}
+
+@property --fg-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #c8ccd4ff;
+}
+
+@property --alpha-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #00000000;
+}
+
+@property --selected-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #101010ff;
+}
+
+@property --accent-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #98c379;
+}
+
+* {
+    font-family: Cartograph CF Nerd Font, monospace;
+    font-weight: bold;
+    font-size: 14;
+    outline-style: none;
+}
+
+window {
+    margin: 5px;
+    border: 2px solid #00ff99;
+    border-radius: 12px;
+    background-color: #16161f
+}
+    
+#input {
+    padding: 0.30% 1.5% 0% -0.5%;
+    margin-right: 5%;
+    /*border: 1px solid #00ff99;*/
+    border-radius: 12px;
+    background-color: #16161f;
+}
+    
+#inner-box {
+    margin: 5px;
+}
+    
+#outer-box {
+    margin: 5px;
+    background-color: var(--alpha-color);
+}
+    
+#scroll {
+    margin: 5px;
+    background-color: var(--alpha-color);
+}
+    
+#text {
+    margin: 5px;
+    color: var(--fg-color);
+    background-color: var(--alpha-color);
+}
+
+#entry {
+    color: #c8ccd4;
+    background-color: var(--alpha-color);
+}
+
+#entry:selected {
+    /*background: #98c379;*/
+    background-image: linear-gradient(45deg, #33ccff, #00ff99);
+    border-radius: 12px;
+    color: #16161f;
+}
+
+#text:selected {
+    color: #16161f;
+}

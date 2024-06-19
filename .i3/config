@@ -11,8 +11,8 @@ mouse_warping none
 # workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-new_window pixel 2
-new_float normal
+default_border pixel 2
+default_floating_border normal
 
 
 # Hide borders
@@ -70,6 +70,7 @@ bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec firefox
 #bindsym $mod+Ctrl+space exec rofi -m -1 -show run
 bindsym $mod+Ctrl+space exec ~/.config/rofi/launchers/colorful/launcher.sh
+bindsym $mod+F12 exec ~/.config/eww/dashboard/launch_dashboard
 bindsym $mod+Tab exec ~/.config/rofi/launchers/colorful/launcher.sh window
 bindsym $mod+Shift+Tab exec ~/.config/rofi/launchers/colorful/launcher.sh windowcd
 bindsym $mod+F3 exec dde-file-manager
@@ -220,10 +221,12 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Bind workspaces to monitors
-set $left DP-2-1-8
-set $right DP-2-8
-set $internal eDP-1
-#set $monitor_three DP2-1
+#set $left DP-2-1-8
+#set $right DP-2-8
+#set $internal eDP-1
+set $left DisplayPort-4
+set $right DisplayPort-2 
+set $internal eDP
 
 workspace $ws1 output $left
 workspace $ws2 output $left
@@ -275,9 +278,11 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [class="qemu"] floating enable
+for_window [class="openconnect-sso"] floating enable border normal
 #for_window [class="feh"] floating enable
 #for_window [class="mpv"] floating enable
 for_window [class="dde-file-manager"] floating enable border normal
+for_window [instance="Godot_Engine"] floating enable border normal
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
 
@@ -294,10 +299,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Escape mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown, toggle_(m)onitors
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit customlock, mode "default"
-#    bindsym l exec --no-startup-id i3exit lock, mode "default"
-#    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+#    bindsym l exec --no-startup-id i3exit customlock, mode "default"
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+#    bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
@@ -335,13 +340,15 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+l exec betterlockscreen -l dimblur 
+#bindsym $mod+l exec --no-startup-id i3exit lock
+bindsym $mod+l exec --no-startup-id i3lock --image /usr/share/backgrounds/12.png --tiling
 #bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-#exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+exec --no-startup-id dunst
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id picom -b
 exec --no-startup-id nm-applet
@@ -359,7 +366,8 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 #exec_always --no-startup-id ~/scripts/monitor_toggle.sh
 exec_always --no-startup-id ~/scripts/mouse_buttons.sh
 #exec --no-startup-id ~/scripts/startup.sh
-exec_always --no-startup-id feh --bg-scale ~/Pictures/landscape.png
+#exec_always --no-startup-id feh --bg-scale ~/Pictures/landscape.png
+exec --no-startup-id syngestures
 
 bindsym $mod+c exec ~/scripts/move_cursor.sh
 
@@ -367,9 +375,10 @@ bindsym $mod+c exec ~/scripts/move_cursor.sh
 bindsym $mod+Shift+x exec ~/scripts/nomad_kill.sh
 
 # Dropdown terminal
-exec --no-startup-id kitty --name=dropdown &
+exec --no-startup-id i3-sensible-terminal -name dropdown &
 
-bindsym $mod+i [instance="dropdown"] scratchpad show, move position center
+bindsym $mod+i [instance="dropdown"] scratchpad show 
+bindsym $mod+Shift+i [instance="dropdown"] scratchpad show, move position center
 
 for_window [instance="dropdown"] floating enable, resize set 800 600, \
     move scratchpad

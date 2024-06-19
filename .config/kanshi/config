@@ -1,0 +1,14 @@
+profile "office" {
+    output "Samsung Electric Company S24H85x H4ZK800737" mode 2560x1440 position 0,0
+    output "Samsung Electric Company S24H85x H4ZK800344" mode 2560x1440 position 2560,0
+    output eDP-1 mode 1920x1080 position 5120,0 scale 1
+}
+
+profile "laptop" {
+    output eDP-1 mode 1920x1080 position 0,0 scale 1
+}
+
+profile "homeoffice" {
+    output DP-1 mode 2560x1440 position 0,0
+    output eDP-1 mode 1920x1080 position 2560,0 scale 1
+}

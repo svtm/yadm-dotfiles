@@ -193,7 +193,7 @@ format-volume-padding = 1
 
 [module/time]
 type = internal/date
-interval = 60
+interval = 1.0
 format = <label>
 format-background = #2b2f37
 date = %{F#888e96}󰥔 %H:%M%{F-}

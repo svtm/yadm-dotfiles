@@ -1,0 +1,6 @@
+allow_images=true
+prompt=Run
+columns=2
+color=colors
+width=800
+height=400

@@ -9,7 +9,8 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/usr/share/oh-my-zsh"
+#export ZSH="/usr/share/oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -32,7 +33,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -110,7 +111,7 @@ export EDITOR='vim'
 xset b off
 NPM_PACKAGES="${HOME}/.npm-packages"
 LOCAL_PACKAGES="${HOME}/.local"
-PATH="$HOME/signicat/docker-green-stack-sign/util:$NPM_PACKAGES/bin:$LOCAL_PACKAGES/bin:$HOME/.cabal:$HOME/.ghcup/bin:$HOME/scripts:$PATH"
+PATH="$HOME/signicat/docker-green-stack-sign/util:$NPM_PACKAGES/bin:$LOCAL_PACKAGES/bin:$HOME/.cabal:$HOME/.ghcup/bin:$HOME/scripts:$HOME/.cargo/bin:$PATH"
 
 export JAVA_HOME="/usr/lib/jvm/default"
 
@@ -154,7 +155,7 @@ function murder() {
         echo "Usage: murder <processname-ish>"
     else
         echo "Murdering all processes matching $1"
-        ps -aux | grep $1 | grep -v grep | awk '{print $2}' | xargs kill
+        ps -aux | grep $1 | grep -v grep | awk '{print $2}' | xargs kill -9
     fi
 }
 
@@ -171,6 +172,7 @@ alias mscrot="scrot -e 'mv $f ~/screenshots/'"
 alias vim="nvim"
 alias jshell="env TERM=xterm jshell"
 alias dcu="docker-compose up"
+alias sshot="~/scripts/sshot.sh"
 
 replace_symlink() {
     if [ -z "$1" ]; then
@@ -194,6 +196,7 @@ alias update_pmodules="find ~/signicat/ -maxdepth 1 -type d \(  -name \"pmodule_
 export QTT_QPA_PLATFORMTHEME=gtk2
 
 alias yolo="mvn clean install -DskipTests -Dcheckstyle.skip -Djacoco.skip -Ddocker.skip -Djavadoc.skip -Denforcer.skip -Dmaven.javadoc.skip=true"
+alias snyk-list="snyk test 2>/dev/null | sed -n 's/^.*https:\/\/snyk.io\/vuln\/\(.*\)].*$/\1/p'"
 
 bwl() {
 	bw_output=$(bw unlock)
@@ -203,3 +206,12 @@ bwl() {
 		eval $export_cmd
 	fi
 }
+source /usr/share/nvm/init-nvm.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/enielsen/signicat/gcp-stuff/google-cloud-sdk/path.zsh.inc' ]; then . '/home/enielsen/signicat/gcp-stuff/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/enielsen/signicat/gcp-stuff/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/enielsen/signicat/gcp-stuff/google-cloud-sdk/completion.zsh.inc'; fi
+
+export USE_GKE_CLOUD_AUTH_PLUGIN=True
